@@ -12,7 +12,7 @@ namespace WindowsFormsAircraft
 {
     public partial class FormAircraft : Form
     {
-        private SeaPlane aircraft;
+        private Aircraft aircraft;
         public FormAircraft()
         {
             InitializeComponent();
@@ -23,15 +23,6 @@ namespace WindowsFormsAircraft
             Graphics gr = Graphics.FromImage(bmp);
             aircraft.DrawTransport(gr);
             pictureBoxAircraft.Image = bmp;
-        }
-        private void buttonCreate_Click(object sender, EventArgs e)
-        {
-            Random rnd = new Random();
-            aircraft = new SeaPlane(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Blue,
-            Color.Green, true, true);
-            aircraft.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxAircraft.Width,
-            pictureBoxAircraft.Height);
-            Draw();
         }
         private void buttonMove_Click(object sender, EventArgs e)
         {
@@ -51,6 +42,24 @@ namespace WindowsFormsAircraft
                     aircraft.MoveTransport(Direction.Right);
                     break;
             }
+            Draw();
+        }
+
+        private void buttonCreateSeaPlane_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            aircraft = new SeaPlane(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Blue,
+            Color.Yellow, true, true);
+            aircraft.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxAircraft.Width,
+            pictureBoxAircraft.Height);
+            Draw();
+        }
+
+        private void buttonCreateAircraft_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            aircraft = new Aircraft(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Blue);
+            aircraft.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxAircraft.Width, pictureBoxAircraft.Height);
             Draw();
         }
     }
