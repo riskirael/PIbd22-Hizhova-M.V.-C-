@@ -12,16 +12,21 @@ namespace WindowsFormsAircraft
 {
     public partial class FormAircraft : Form
     {
-        private Aircraft aircraft;
+        private ITransport aircraft;
         public FormAircraft()
         {
             InitializeComponent();
         }
-        private void Draw()
+        public void SetAircraft(ITransport aircraft)
+        {
+            this.aircraft = aircraft;
+            Draw();
+        }
+            private void Draw()
         {
             Bitmap bmp = new Bitmap(pictureBoxAircraft.Width, pictureBoxAircraft.Height);
             Graphics gr = Graphics.FromImage(bmp);
-            aircraft.DrawTransport(gr);
+            aircraft?.DrawTransport(gr);
             pictureBoxAircraft.Image = bmp;
         }
         private void buttonMove_Click(object sender, EventArgs e)
@@ -30,21 +35,20 @@ namespace WindowsFormsAircraft
             switch (name)
             {
                 case "buttonUp":
-                    aircraft.MoveTransport(Direction.Up);
+                    aircraft?.MoveTransport(Direction.Up);
                     break;
                 case "buttonDown":
-                    aircraft.MoveTransport(Direction.Down);
+                    aircraft?.MoveTransport(Direction.Down);
                     break;
                 case "buttonLeft":
-                    aircraft.MoveTransport(Direction.Left);
+                    aircraft?.MoveTransport(Direction.Left);
                     break;
                 case "buttonRight":
-                    aircraft.MoveTransport(Direction.Right);
+                    aircraft?.MoveTransport(Direction.Right);
                     break;
             }
             Draw();
         }
-
         private void buttonCreateSeaPlane_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
@@ -54,7 +58,6 @@ namespace WindowsFormsAircraft
             pictureBoxAircraft.Height);
             Draw();
         }
-
         private void buttonCreateAircraft_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
