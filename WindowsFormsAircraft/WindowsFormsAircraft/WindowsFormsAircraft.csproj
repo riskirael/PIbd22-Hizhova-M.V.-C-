@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aerodrom.cs" />
+    <Compile Include="AerodromCollection.cs" />
     <Compile Include="Aircraft.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="FormAerodrom.cs">
