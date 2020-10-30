@@ -19,12 +19,11 @@ namespace WindowsFormsAircraft
             Bobber = bobber;
             Stripes = stripes;
         }
-       
         public override void DrawTransport(Graphics g)
         {
             Brush dopColor = new SolidBrush(DopColor);
             Pen bl = new Pen(Color.Black);
-            Pen gr = new Pen(Color.White);
+            Pen gr = new Pen(Color.Black);
             //поплавки
             if (Bobber)
             {
@@ -50,6 +49,10 @@ namespace WindowsFormsAircraft
                 g.DrawLine(gr, startPosX + 74, startPosY, startPosX + 74, startPosY + 95);
                 g.DrawLine(gr, startPosX + 76, startPosY, startPosX + 76, startPosY + 95);
             }
+        }
+        public void SetDopColor(Color color)
+        {
+            DopColor = color;
         }
     }
 }

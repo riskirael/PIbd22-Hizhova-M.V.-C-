@@ -134,10 +134,30 @@ namespace WindowsFormsAircraft
                 }
             }
         }
-
         private void listBoxAerodrom_SelectedIndexChanged(object sender, EventArgs e)
         {
             Draw();
+        }
+
+        private void buttonAddAircraft_Click(object sender, EventArgs e)
+        {
+            var formAircraftConfig = new FormAircraftConfig();
+            formAircraftConfig.AddEvent(AddAircraft);
+            formAircraftConfig.Show();
+        }
+        private void AddAircraft(Plane aircraft)
+        {
+            if (aircraft != null && listBoxAerodrom.SelectedIndex > -1)
+            {
+                if ((aerodromCollection[listBoxAerodrom.SelectedItem.ToString()]) + aircraft)
+                {
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Самолет не удалось посадить");
+                }
+            }
         }
     }
 }

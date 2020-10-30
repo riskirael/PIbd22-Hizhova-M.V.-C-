@@ -10,7 +10,7 @@ namespace WindowsFormsAircraft
     public class Aerodrom<T> where T : class, ITransport
     {
         private readonly List<T> places;
-        private readonly int maxCount=20;
+        private readonly int maxCount;
         private readonly int pictureWidth = 140;
         private readonly int pictureHeight = 90;
         private readonly int placeSizeWidth = 150;
@@ -48,8 +48,8 @@ namespace WindowsFormsAircraft
             DrawMarking(g);
             for (int i = 0; i < places.Count; i++)
             {
-                places[i].SetPosition(5 + i / 5 * placeSizeWidth + 5, i % 5 *
-                placeSizeHeight + 15, pictureWidth, pictureHeight);
+                places[i].SetPosition(5 + i / 5 * placeSizeWidth + 15, i % 5 *
+                placeSizeHeight +15, pictureWidth, pictureHeight);
                 places[i].DrawTransport(g);
             }
         }
