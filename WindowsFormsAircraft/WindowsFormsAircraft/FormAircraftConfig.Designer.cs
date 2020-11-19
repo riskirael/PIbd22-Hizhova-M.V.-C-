@@ -244,7 +244,7 @@
             // panelPurple
             // 
             this.panelPurple.AllowDrop = true;
-            this.panelPurple.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.panelPurple.BackColor = System.Drawing.Color.Purple;
             this.panelPurple.Location = new System.Drawing.Point(87, 123);
             this.panelPurple.Name = "panelPurple";
             this.panelPurple.Size = new System.Drawing.Size(57, 52);
