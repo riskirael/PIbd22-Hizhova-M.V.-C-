@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -47,7 +48,7 @@ namespace WindowsFormsAircraft
             }
         }
 
-        public bool SaveData(string filename)
+        public void SaveData(string filename)
         {
             if (File.Exists(filename))
             {
@@ -76,18 +77,16 @@ namespace WindowsFormsAircraft
                         }
                     }
                 }
-                return true;
             }
         }
-        public bool LoadData(string filename)
+        public void LoadData(string filename)
         {
             if (!File.Exists(filename))
             {
-                return false;
+                throw new FileNotFoundException();
             }
 
-            using (StreamReader streamReader = new StreamReader
-                (filename, System.Text.Encoding.Default))
+            using (StreamReader streamReader = new StreamReader(filename, System.Text.Encoding.Default))
             {
                 if (streamReader.ReadLine().Contains("AerodromCollection"))
                 {
@@ -95,7 +94,7 @@ namespace WindowsFormsAircraft
                 }
                 else
                 {
-                    return false;
+                    throw new FormatException("Неверный формат файла");
                 }
 
                 Aircraft aircraft = null;
@@ -120,11 +119,10 @@ namespace WindowsFormsAircraft
                         }
                         if (!(aerodromStages[key] + aircraft))
                         {
-                            return false;
+                            throw new NullReferenceException("Не удалось загрузить самолет на аэродром");
                         }
                     }
                 }
-                return true;
             }
         }
     }

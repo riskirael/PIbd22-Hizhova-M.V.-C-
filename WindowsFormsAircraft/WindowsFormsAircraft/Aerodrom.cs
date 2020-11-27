@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace WindowsFormsAircraft
         {
             if (a.places.Count >= a.maxCount)
             {
-                return false;
+                throw new AerodromOverflowException();
             }
             a.places.Add(aircraft);
             return true;
@@ -37,7 +38,7 @@ namespace WindowsFormsAircraft
         {
             if (index < -1 || index > a.places.Count)
             {
-                return null;
+                throw new AerodromNotFoundException(index);
             }
             T aircraft = a.places[index];
             a.places.RemoveAt(index);
