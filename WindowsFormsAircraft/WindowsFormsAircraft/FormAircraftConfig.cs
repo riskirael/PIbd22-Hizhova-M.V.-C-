@@ -89,37 +89,12 @@ namespace WindowsFormsAircraft
             }
             DrawAircraft();
         }
-        private void labelMainColor_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(typeof(Color)))
-            {
-                e.Effect = DragDropEffects.Copy;
-
-            }
-            else
-            {
-                e.Effect = DragDropEffects.None;
-            }
-
-        }
         private void labelMainColor_DragDrop(object sender, DragEventArgs e)
         {
             if (aircraft != null)
             {
                 aircraft.SetMainColor((Color)e.Data.GetData(typeof(Color)));
                 DrawAircraft();
-            }
-        }
-        private void labelDopColor_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(typeof(Color)))
-            {
-                e.Effect = DragDropEffects.Copy;
-
-            }
-            else
-            {
-                e.Effect = DragDropEffects.None;
             }
         }
         private void labelDopColor_DragDrop(object sender, DragEventArgs e)
@@ -138,6 +113,19 @@ namespace WindowsFormsAircraft
         {
             eventAddAircraft?.Invoke(aircraft);
             Close();
+        }
+
+        private void labelColor_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(Color)))
+            {
+                e.Effect = DragDropEffects.Copy;
+
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
         }
     }
 }

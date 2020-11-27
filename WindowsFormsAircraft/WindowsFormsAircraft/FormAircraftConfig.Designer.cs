@@ -260,7 +260,7 @@
             this.labelDopColor.TabIndex = 1;
             this.labelDopColor.Text = "Дополнительный цвет";
             this.labelDopColor.DragDrop += new System.Windows.Forms.DragEventHandler(this.labelDopColor_DragDrop);
-            this.labelDopColor.DragEnter += new System.Windows.Forms.DragEventHandler(this.labelDopColor_DragEnter);
+            this.labelDopColor.DragEnter += new System.Windows.Forms.DragEventHandler(this.labelColor_DragEnter);
             // 
             // labelMainColor
             // 
@@ -272,7 +272,7 @@
             this.labelMainColor.TabIndex = 0;
             this.labelMainColor.Text = "Основной цвет";
             this.labelMainColor.DragDrop += new System.Windows.Forms.DragEventHandler(this.labelMainColor_DragDrop);
-            this.labelMainColor.DragEnter += new System.Windows.Forms.DragEventHandler(this.labelMainColor_DragEnter);
+            this.labelMainColor.DragEnter += new System.Windows.Forms.DragEventHandler(this.labelColor_DragEnter);
             // 
             // panelBlue
             // 
