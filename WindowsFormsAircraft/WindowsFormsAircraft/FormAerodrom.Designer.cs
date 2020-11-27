@@ -39,13 +39,20 @@
             this.listBoxAerodrom = new System.Windows.Forms.ListBox();
             this.buttonDelAerodrom = new System.Windows.Forms.Button();
             this.buttonAddAircraft = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAerodrom)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBoxAerodrom
             // 
-            this.pictureBoxAerodrom.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxAerodrom.Location = new System.Drawing.Point(0, 30);
             this.pictureBoxAerodrom.Name = "pictureBoxAerodrom";
             this.pictureBoxAerodrom.Size = new System.Drawing.Size(655, 620);
             this.pictureBoxAerodrom.TabIndex = 0;
@@ -92,7 +99,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(662, 0);
+            this.label2.Location = new System.Drawing.Point(664, 35);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 4;
@@ -100,14 +107,14 @@
             // 
             // textBoxAerodrom
             // 
-            this.textBoxAerodrom.Location = new System.Drawing.Point(665, 16);
+            this.textBoxAerodrom.Location = new System.Drawing.Point(665, 60);
             this.textBoxAerodrom.Name = "textBoxAerodrom";
             this.textBoxAerodrom.Size = new System.Drawing.Size(161, 20);
             this.textBoxAerodrom.TabIndex = 5;
             // 
             // buttonAddAerodrom
             // 
-            this.buttonAddAerodrom.Location = new System.Drawing.Point(667, 42);
+            this.buttonAddAerodrom.Location = new System.Drawing.Point(667, 102);
             this.buttonAddAerodrom.Name = "buttonAddAerodrom";
             this.buttonAddAerodrom.Size = new System.Drawing.Size(159, 25);
             this.buttonAddAerodrom.TabIndex = 6;
@@ -118,7 +125,7 @@
             // listBoxAerodrom
             // 
             this.listBoxAerodrom.FormattingEnabled = true;
-            this.listBoxAerodrom.Location = new System.Drawing.Point(667, 73);
+            this.listBoxAerodrom.Location = new System.Drawing.Point(667, 133);
             this.listBoxAerodrom.Name = "listBoxAerodrom";
             this.listBoxAerodrom.Size = new System.Drawing.Size(160, 108);
             this.listBoxAerodrom.TabIndex = 7;
@@ -126,7 +133,7 @@
             // 
             // buttonDelAerodrom
             // 
-            this.buttonDelAerodrom.Location = new System.Drawing.Point(665, 187);
+            this.buttonDelAerodrom.Location = new System.Drawing.Point(665, 247);
             this.buttonDelAerodrom.Name = "buttonDelAerodrom";
             this.buttonDelAerodrom.Size = new System.Drawing.Size(159, 25);
             this.buttonDelAerodrom.TabIndex = 8;
@@ -136,13 +143,55 @@
             // 
             // buttonAddAircraft
             // 
-            this.buttonAddAircraft.Location = new System.Drawing.Point(664, 245);
+            this.buttonAddAircraft.Location = new System.Drawing.Point(665, 324);
             this.buttonAddAircraft.Name = "buttonAddAircraft";
             this.buttonAddAircraft.Size = new System.Drawing.Size(159, 62);
             this.buttonAddAircraft.TabIndex = 9;
             this.buttonAddAircraft.Text = "Добавить самолет";
             this.buttonAddAircraft.UseVisualStyleBackColor = true;
             this.buttonAddAircraft.Click += new System.EventHandler(this.buttonAddAircraft_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.файлToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(839, 24);
+            this.menuStrip1.TabIndex = 10;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // файлToolStripMenuItem
+            // 
+            this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.сохранитьToolStripMenuItem,
+            this.загрузитьToolStripMenuItem});
+            this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.файлToolStripMenuItem.Text = "Файл";
+            // 
+            // сохранитьToolStripMenuItem
+            // 
+            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
+            // 
+            // загрузитьToolStripMenuItem
+            // 
+            this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
+            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.загрузитьToolStripMenuItem.Text = "Загрузить";
+            this.загрузитьToolStripMenuItem.Click += new System.EventHandler(this.загрузитьToolStripMenuItem_Click);
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.Filter = "txt file | *.txt";
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog1";
+            this.openFileDialog.Filter = "txt file | *.txt";
             // 
             // FormAerodrom
             // 
@@ -157,11 +206,15 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBoxAerodrom);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormAerodrom";
             this.Text = "Аэродром";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAerodrom)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -180,5 +233,11 @@
         private System.Windows.Forms.ListBox listBoxAerodrom;
         private System.Windows.Forms.Button buttonDelAerodrom;
         private System.Windows.Forms.Button buttonAddAircraft;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem загрузитьToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }

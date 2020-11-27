@@ -19,6 +19,19 @@ namespace WindowsFormsAircraft
             Bobber = bobber;
             Stripes = stripes;
         }
+        public SeaPlane(string info) : base(info)
+        {
+            string[] strs = info.Split(separator);
+            if (strs.Length == 6)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+                DopColor = Color.FromName(strs[3]);
+                Bobber = Convert.ToBoolean(strs[4]);
+                Stripes = Convert.ToBoolean(strs[5]);
+            }
+        }
         public override void DrawTransport(Graphics g)
         {
             Brush dopColor = new SolidBrush(DopColor);
@@ -53,6 +66,11 @@ namespace WindowsFormsAircraft
         public void SetDopColor(Color color)
         {
             DopColor = color;
+        }
+        public override string ToString()
+        {
+            return
+            $"{base.ToString()}{separator}{DopColor.Name}{separator}{Bobber}{separator}{Stripes}";
         }
     }
 }

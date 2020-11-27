@@ -11,11 +11,22 @@ namespace WindowsFormsAircraft
     {
         protected readonly int aircraftWidth = 120;
         protected readonly int aircraftHeight =90;
+        protected readonly char separator = ';';
         public Aircraft(int maxSpeed, float weight, Color mainColor)
         {
             MaxSpeed = maxSpeed;
             Weight = weight;
             MainColor = mainColor;
+        }
+        public Aircraft(string info)
+        {
+            string[] strs = info.Split(separator);
+            if (strs.Length == 3)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+            }
         }
         protected Aircraft(int maxSpeed, float weight, Color mainColor, int aircraftWidth, int aircraftHeight)
         {
@@ -25,6 +36,7 @@ namespace WindowsFormsAircraft
             this.aircraftWidth = aircraftWidth;
             this.aircraftHeight = aircraftHeight;
         }
+       
         public override void MoveTransport(Direction direction)
         {
             float step = MaxSpeed * 100 / Weight;
@@ -76,6 +88,10 @@ namespace WindowsFormsAircraft
             g.DrawLine(bl, startPosX + 5, startPosY + 70, startPosX + 15, startPosY + 60);
             g.DrawLine(gr, startPosX - 5, startPosY + 30, startPosX - 5, startPosY + 70);
             g.DrawLine(gr, startPosX + 5, startPosY + 30, startPosX + 5, startPosY + 70);
+        }
+        public override string ToString()
+        {
+            return $"{MaxSpeed}{separator}{Weight}{separator}{MainColor.Name}";
         }
     }
 }
