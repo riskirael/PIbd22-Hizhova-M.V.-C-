@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,11 +15,13 @@ namespace WindowsFormsAircraft
         private readonly int pictureWidth;
         private readonly int pictureHeight;
         private readonly char separator = ':';
+        private readonly Logger logger;
         public AerodromCollection(int pictureWidth, int pictureHeight)
         {
             aerodromStages = new Dictionary<string, Aerodrom<Plane>>();
             this.pictureWidth = pictureWidth;
             this.pictureHeight = pictureHeight;
+            logger = LogManager.GetCurrentClassLogger();
         }
         public void AddParking(string name)
         {
@@ -47,7 +50,7 @@ namespace WindowsFormsAircraft
             }
         }
 
-        public bool SaveData(string filename)
+        public void SaveData(string filename)
         {
             if (File.Exists(filename))
             {
@@ -76,18 +79,16 @@ namespace WindowsFormsAircraft
                         }
                     }
                 }
-                return true;
             }
         }
-        public bool LoadData(string filename)
+        public void LoadData(string filename)
         {
             if (!File.Exists(filename))
             {
-                return false;
+                logger.Warn("Файл не найден");
+                throw new FileNotFoundException();
             }
-
-            using (StreamReader streamReader = new StreamReader
-                (filename, System.Text.Encoding.Default))
+            using (StreamReader streamReader = new StreamReader(filename, System.Text.Encoding.Default))
             {
                 if (streamReader.ReadLine().Contains("AerodromCollection"))
                 {
@@ -95,7 +96,8 @@ namespace WindowsFormsAircraft
                 }
                 else
                 {
-                    return false;
+                    logger.Warn("Неверный формат файла");
+                    throw new FormatException("Неверный формат файла");
                 }
 
                 Aircraft aircraft = null;
@@ -120,11 +122,12 @@ namespace WindowsFormsAircraft
                         }
                         if (!(aerodromStages[key] + aircraft))
                         {
-                            return false;
+                            logger.Warn("Не удалось загрузить самолет на аэродром");
+                            throw new NullReferenceException("Не удалось загрузить самолет на аэродром");
+                            
                         }
                     }
                 }
-                return true;
             }
         }
     }
