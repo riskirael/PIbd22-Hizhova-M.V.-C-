@@ -57,7 +57,6 @@
     <Compile Include="Aerodrom.cs" />
     <Compile Include="AerodromCollection.cs" />
     <Compile Include="AerodromNotFoundException.cs" />
-    <Compile Include="AerodromOccupiedPlaceException.cs" />
     <Compile Include="AerodromOverflowException.cs" />
     <Compile Include="Aircraft.cs" />
     <Compile Include="Direction.cs" />

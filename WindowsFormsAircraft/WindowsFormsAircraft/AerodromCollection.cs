@@ -15,11 +15,13 @@ namespace WindowsFormsAircraft
         private readonly int pictureWidth;
         private readonly int pictureHeight;
         private readonly char separator = ':';
+        private readonly Logger logger;
         public AerodromCollection(int pictureWidth, int pictureHeight)
         {
             aerodromStages = new Dictionary<string, Aerodrom<Plane>>();
             this.pictureWidth = pictureWidth;
             this.pictureHeight = pictureHeight;
+            logger = LogManager.GetCurrentClassLogger();
         }
         public void AddParking(string name)
         {
@@ -83,9 +85,9 @@ namespace WindowsFormsAircraft
         {
             if (!File.Exists(filename))
             {
+                logger.Warn("Файл не найден");
                 throw new FileNotFoundException();
             }
-
             using (StreamReader streamReader = new StreamReader(filename, System.Text.Encoding.Default))
             {
                 if (streamReader.ReadLine().Contains("AerodromCollection"))
@@ -94,6 +96,7 @@ namespace WindowsFormsAircraft
                 }
                 else
                 {
+                    logger.Warn("Неверный формат файла");
                     throw new FormatException("Неверный формат файла");
                 }
 
@@ -119,7 +122,9 @@ namespace WindowsFormsAircraft
                         }
                         if (!(aerodromStages[key] + aircraft))
                         {
+                            logger.Warn("Не удалось загрузить самолет на аэродром");
                             throw new NullReferenceException("Не удалось загрузить самолет на аэродром");
+                            
                         }
                     }
                 }
