@@ -23,7 +23,7 @@ namespace WindowsFormsAircraft
             this.pictureHeight = pictureHeight;
             logger = LogManager.GetCurrentClassLogger();
         }
-        public void AddParking(string name)
+        public void AddAerodrom(string name)
         {
             if (aerodromStages.ContainsKey(name))
             {
@@ -31,7 +31,7 @@ namespace WindowsFormsAircraft
             }
             aerodromStages.Add(name, new Aerodrom<Plane>(pictureWidth, pictureHeight));
         }
-        public void DelParking(string name)
+        public void DelAerodrom(string name)
         {
             if (aerodromStages.ContainsKey(name))
             {

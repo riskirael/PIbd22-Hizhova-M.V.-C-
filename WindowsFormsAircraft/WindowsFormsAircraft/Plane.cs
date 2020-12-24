@@ -19,7 +19,7 @@ namespace WindowsFormsAircraft
         public Color MainColor { protected set; get; }
         public void SetPosition(int x, int y, int width, int height)
         {
-            if (x >= 0 && x + pictureWidth < width && y >= 0 && y + pictureHeight < height)
+            if (x >= 0 && x < width && y >= 0 && y < height)
             {
                 startPosX = x;
                 startPosY = y;

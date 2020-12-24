@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsAircraft
 {
-    public class SeaPlane : Aircraft
+    public class SeaPlane : Aircraft, IEquatable<SeaPlane>
     {
         public Color DopColor { private set; get; }
         public bool Bobber { private set; get; }
@@ -71,6 +71,56 @@ namespace WindowsFormsAircraft
         {
             return
             $"{base.ToString()}{separator}{DopColor.Name}{separator}{Bobber}{separator}{Stripes}";
+        }
+        public bool Equals(SeaPlane other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return false;
+            }
+            if (Weight != other.Weight)
+            {
+                return false;
+            }
+            if (MainColor != other.MainColor)
+            {
+                return false;
+            }
+            if (DopColor != other.DopColor)
+            {
+                return false;
+            }
+            if (Bobber != other.Bobber)
+            {
+                return false;
+            }
+            if (Stripes != other.Stripes)
+            {
+                return false;
+            }
+            
+            return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is SeaPlane seaPlaneObject))
+            {
+                return false;
+            }
+            return Equals(seaPlaneObject);
         }
     }
 }
