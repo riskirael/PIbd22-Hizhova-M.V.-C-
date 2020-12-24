@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsAircraft
 {
-    public class Aircraft : Plane
+    public class Aircraft : Plane, IEquatable<Aircraft>
     {
         protected readonly int aircraftWidth = 120;
         protected readonly int aircraftHeight =90;
@@ -92,6 +92,43 @@ namespace WindowsFormsAircraft
         public override string ToString()
         {
             return $"{MaxSpeed}{separator}{Weight}{separator}{MainColor.Name}";
+        }
+        public bool Equals(Aircraft other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return false;
+            }
+            if (Weight != other.Weight)
+            {
+                return false;
+            }
+            if (MainColor != other.MainColor)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is Aircraft aircraftObject))
+            {
+                return false;
+            }
+            return Equals(aircraftObject);
         }
     }
 }

@@ -20,6 +20,7 @@ namespace WindowsFormsAircraft
             InitializeComponent();
             aerodromCollection = new AerodromCollection(pictureBoxAerodrom.Width,pictureBoxAerodrom.Height);
             logger = LogManager.GetCurrentClassLogger();
+            DrawTransport();
         }
         private void ReloadLevels()
         {
@@ -40,15 +41,19 @@ namespace WindowsFormsAircraft
                 listBoxAerodrom.SelectedIndex = index;
             }
         }
-        private void Draw()
+        private void DrawTransport()
         {
-            if (listBoxAerodrom.SelectedIndex > -1)
-            { 
-                Bitmap bmp = new Bitmap(pictureBoxAerodrom.Width, pictureBoxAerodrom.Height);
-                Graphics gr = Graphics.FromImage(bmp);
-                aerodromCollection[listBoxAerodrom.SelectedItem.ToString()].Draw(gr);
-                pictureBoxAerodrom.Image = bmp;
+            Bitmap bitmap = new Bitmap(pictureBoxAerodrom.Width, pictureBoxAerodrom.Height);
+            Graphics g = Graphics.FromImage(bitmap);
+            if (listBoxAerodrom.SelectedIndex >= 0)
+            {
+                aerodromCollection[listBoxAerodrom.SelectedItem.ToString()].DrawTransport(g);
             }
+            else
+            {
+                g.FillRectangle(new SolidBrush(Color.Transparent), 0, 0, pictureBoxAerodrom.Width, pictureBoxAerodrom.Height);
+            }
+            pictureBoxAerodrom.Image = bitmap;
         }
         private void buttonSetAircraft_Click(object sender, EventArgs e)
         {
@@ -60,7 +65,7 @@ namespace WindowsFormsAircraft
                     var aircraft = new Aircraft(100, 1000, dialog.Color);
                     if (aerodromCollection[listBoxAerodrom.SelectedItem.ToString()] +aircraft)
                     {
-                        Draw();
+                        DrawTransport();
                     }
                     else
                     {
@@ -83,7 +88,7 @@ namespace WindowsFormsAircraft
                         dialogDop.Color, true, true);
                         if (aerodromCollection[listBoxAerodrom.SelectedItem.ToString()]+aircraft)
                         {
-                            Draw();
+                            DrawTransport();
                         }
                         else
                         {
@@ -107,7 +112,7 @@ namespace WindowsFormsAircraft
                         form.SetAircraft(aircraft);
                         form.ShowDialog();
                         logger.Info($"Изъят самолет {aircraft} с места { maskedTextBox1.Text}");
-                    Draw();
+                    DrawTransport();
                     }
                 }
                 catch (AerodromNotFoundException ex)
@@ -135,7 +140,7 @@ namespace WindowsFormsAircraft
                 return;
             }
             logger.Info($"Добавили аэродром {textBoxAerodrom.Text}");
-            aerodromCollection.AddParking(textBoxAerodrom.Text);
+            aerodromCollection.AddAerodrom(textBoxAerodrom.Text);
             ReloadLevels();
         }
 
@@ -147,7 +152,7 @@ namespace WindowsFormsAircraft
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     logger.Info($"Удалили аэродром{listBoxAerodrom.SelectedItem.ToString()}");
-                    aerodromCollection.DelParking(textBoxAerodrom.Text);
+                    aerodromCollection.DelAerodrom(textBoxAerodrom.Text);
                     ReloadLevels();
                 }
             }
@@ -155,7 +160,7 @@ namespace WindowsFormsAircraft
         private void listBoxAerodrom_SelectedIndexChanged(object sender, EventArgs e)
         {
             logger.Info($"Перешли на аэродром{ listBoxAerodrom.SelectedItem.ToString()} ");
-            Draw();
+            DrawTransport();
         }
 
         private void buttonAddAircraft_Click(object sender, EventArgs e)
@@ -172,14 +177,14 @@ namespace WindowsFormsAircraft
                 {
                     if ((aerodromCollection[listBoxAerodrom.SelectedItem.ToString()]) +aircraft)
                     {
-                        Draw();
+                        DrawTransport();
                         logger.Info($"Добавлен самолет {aircraft}");
                     }
                     else
                     {
                         MessageBox.Show("Самолет не удалось посадить");
                     }
-                    Draw();
+                    DrawTransport();
                 }
                 catch (AerodromOverflowException ex)
                 {
@@ -227,13 +232,7 @@ namespace WindowsFormsAircraft
                     MessageBoxIcon.Information);
                     logger.Info("Загружено из файла " + openFileDialog.FileName);
                     ReloadLevels();
-                    Draw();
-                }
-                catch (AerodromOccupiedPlaceException ex)
-                {
-                    MessageBox.Show(ex.Message, "Занято место", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                    logger.Warn("Место занято");
+                    DrawTransport();
                 }
                 catch (Exception ex)
                 {
@@ -243,5 +242,19 @@ namespace WindowsFormsAircraft
                 }
             }
         }
+
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+            if (listBoxAerodrom.SelectedItem == null)
+            {
+                MessageBox.Show("Аэродром не выбран", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            aerodromCollection[listBoxAerodrom.SelectedItem.ToString()].Sort();
+            DrawTransport();
+            logger.Info("Самолеты на аэродроме " + listBoxAerodrom.SelectedItem.ToString() + " отсортированы");
+        }
+
+     
     }
 }

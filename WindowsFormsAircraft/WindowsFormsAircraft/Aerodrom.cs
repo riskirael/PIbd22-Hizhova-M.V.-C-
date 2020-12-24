@@ -1,5 +1,6 @@
 ﻿using NLog;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsAircraft
 {
-    public class Aerodrom<T> where T : class, ITransport
+    public class Aerodrom<T> : IEnumerator<T>, IEnumerable<T> where T : class, ITransport
     {
         private readonly List<T> places;
         private readonly int maxCount;
@@ -16,6 +17,10 @@ namespace WindowsFormsAircraft
         private readonly int pictureHeight = 90;
         private readonly int placeSizeWidth = 150;
         private readonly int placeSizeHeight = 120;
+
+        private int currentIndex;
+        public T Current => places[currentIndex];
+        object IEnumerator.Current => places[currentIndex];
         public Aerodrom(int picWidth, int picHeight)
         {
             int width = picWidth / placeSizeWidth;
@@ -31,6 +36,10 @@ namespace WindowsFormsAircraft
             {
                 throw new AerodromOverflowException();
             }
+            if (a.places.Contains(aircraft))
+            {
+                throw new AerodromAlreadyHaveException();
+            }
             a.places.Add(aircraft);
             return true;
         }
@@ -44,7 +53,7 @@ namespace WindowsFormsAircraft
             a.places.RemoveAt(index);
             return aircraft;
         }
-        public void Draw(Graphics g)
+        public void DrawTransport(Graphics g)
         {
             DrawMarking(g);
             for (int i = 0; i < places.Count; i++)
@@ -76,6 +85,28 @@ namespace WindowsFormsAircraft
                 return null;
             }
             return places[index];
+        }
+        public void Sort() => places.Sort((IComparer<T>)new AircraftComparer());
+        public bool MoveNext()
+        {
+            currentIndex++;
+            return currentIndex < places.Count;
+        }
+        public void Reset()
+        {
+            currentIndex = -1;
+        }
+        public void Dispose()
+        { }
+       
+        
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this;
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this;
         }
     }
 }
